@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Hello my portfolio</h1>
+						<p>このポートフォリオは<a href="https://html5up.net/">HTML5UP</a>をベースに作成しています。<br />
+						また、ポートフォリオ上ではPythonの内容のみ紹介を行っているため、Javaの内容についてはスキルシートを参照ください。</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="index.html">データ加工</a></li>
+							<li><a href="generic.html">データ可視化</a></li>
+							<li><a href="elements.html">AI領域</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://github.com/key410" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Post -->
+							<section class="post">
+								<p>過去の業務や自己研鑽の際にcsvデータを加工することが多々あります。例えば、必要なカラムのみを切り出したり、一定以上の値のみを取得するためにフィルタを適応したり様々あります。そのような作業が発生した際に処理が軽く、自由度の高いPythonでデータの加工を行いました。</p>
+								<p>使用ライブラリ：pandas</p>
+							</section>
+							<section class="posts">
+								<article>
+									<header>
+										<h2>フィルタの適用</h2>
+									</header>
+									<p>以下の例では"value"が10を超えているレコードだけを抽出して新しいcsvファイルに書き込んでいます。</p>
+									<pre><code>import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+filtered_df = df[df['value'] > 10]
+filtered_df.to_csv('output.csv', index=False)</code></pre>
+								</article>
+								<article>
+									<header>
+										<h2>新規カラムの追加</h2>
+									</header>
+									<p>以下の例では"text"に入っている文字列を元に文字数(text_length)というカラムを追加しています。例文では文字数のカラムを追加していますが、平均値や中央値などプログラミング上で算出できる値であれば同様にしてcsvへ追加することが出来ます。</p>
+									<pre><code>import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+df['text_length'] = df['text'].apply(lambda x: len(str(x)))
+df.to_csv('output.csv', index=False)</code></pre>
+								</article>
+								<article>
+									<header>
+										<h2>カラム名が異なる別々のcsvをマージ</h2>
+									</header>
+									<p>複数の実験データを使用する場合、値の意味は同じであるものの、カラム名のみが異なる場合があるため、そのような場合にはカラム名のリネームを行いつつ実験にデータを用いるために複数データをマージすることがあります。以下ではdata2.csvのカラム名"kuni"をdata1.csvのカラム名"country"に合わせ、必要となるカラムのみを抽出してマージしています。</p>
+									<pre><code>import pandas as pd
+
+df_1 = pd.read_csv('data1.csv')
+df_2 = pd.read_csv('data2.csv')
+
+df_2.rename(columns = {"kuni":"country"}, inplace=True)
+df_marge = pd.concat([df_1[["country","text", "value"]], df_2[["country","text", "value"]]])
+
+df_marge.to_csv('output.csv', index=False)</code></pre>
+								</article>
+								<article>
+									<header>
+										<h2>カテゴリ分類</h2>
+									</header>
+									<p>値の境界値を設定することでカテゴリを別途付与することができます。以下の例では"value"の値に境界値を設け、その値を元にcategoryカラムを作成しています。</p>
+									<pre><code>import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+b = [0, 33, 66, 100]
+l = ['低', '中', '高']
+df['category'] = pd.cut(df['value'], bins=b, labels=l, include_lowest=True)
+
+df.to_csv('output.csv', index=False)</code></pre>
+								</article>
+							</section>
+					</div>
+
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
