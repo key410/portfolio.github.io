@@ -4704,4 +4704,10 @@ input, select, textarea {
 			margin: 5px; /* 画像の周りに余白を追加 */
 			cursor: pointer; /* カーソルをポインターに変更 */
 		  }
+		  .thumbnail2 {
+			max-width: 800px; /* サムネイル画像の最大幅 */
+			height: auto; /* 高さを自動調整 */
+			margin: 5px; /* 画像の周りに余白を追加 */
+			cursor: pointer; /* カーソルをポインターに変更 */
+		  }
 	  
